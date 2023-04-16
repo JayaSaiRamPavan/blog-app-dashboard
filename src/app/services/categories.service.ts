@@ -1,7 +1,8 @@
+import { Category } from './../models/category';
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData} from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData, updateDoc} from '@angular/fire/firestore';
+import { deleteDoc, doc } from '@firebase/firestore';
 import { ToastrService } from 'ngx-toastr';
-import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { map, Observable } from 'rxjs';
 export class CategoriesService {
 
   constructor(private fireStore : Firestore, private toastr : ToastrService) { 
-    this.loadData()
+    
   }
 
   saveData(data : any){
@@ -65,7 +66,34 @@ export class CategoriesService {
     return collectionData(collectionInstance, { idField: 'id' })
   }
 
-  updateData(){
+  updateData(id : string, EditData : any){
+    const docInstance = doc(this.fireStore, 'categories', id);
     
+    updateDoc(docInstance, EditData)
+    .then(()=>{
+      this.toastr.success('Edited Succesfully..!');
+      console.log("Data updated");
+    })
+    .catch(err =>{
+      console.log(err);
+      
+    })
+
+    // this.afs.collection('categories').doc(id).update(EditData).then(docRef =>{
+    //   this.toastr.success('Edited Succesfully..!');
+    // })
+    
+  }
+
+  deleteData(id : string){
+    const docInstance = doc(this.fireStore, 'categories', id);
+    deleteDoc(docInstance)
+    .then(()=>{
+      this.toastr.success('Deleted Succesfully..!');
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+
   }
 }

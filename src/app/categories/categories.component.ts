@@ -16,7 +16,7 @@ export class CategoriesComponent implements OnInit {
 
   formStatus : string = 'Add';
 
-
+  categoryId !: string;
 
   constructor(private categoriesService : CategoriesService) {  
   }
@@ -25,13 +25,28 @@ export class CategoriesComponent implements OnInit {
       let categoryData : Category = {
         category :  formData.value.category ,
       }
-      this.categoriesService.saveData(categoryData)
-      formData.reset()
+
+      if(this.formStatus === 'Add'){
+        this.categoriesService.saveData(categoryData)
+        formData.reset()
+      }
+      else if(this.formStatus === 'Edit'){
+        this.categoriesService.updateData(this.categoryId, categoryData)
+        formData.reset()
+        this.formStatus = 'Add'
+      }
+      
   }
-  onEdit(category : string){
+  onEdit(category : string, id : string){
     this.formCategory = category
     this.formStatus = 'Edit'
+    this.categoryId = id
   }
+
+  onDelete(id: string){
+    this.categoriesService.deleteData(id)
+  }
+
   ngOnInit(): void {
     this.categoriesService.loadData().subscribe(val =>{
       console.log(val);
