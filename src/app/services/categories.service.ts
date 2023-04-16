@@ -63,6 +63,9 @@ export class CategoriesService {
     //this is an observable
     // return collectionData(collectionInstance) // firstore id is not needed
     return collectionData(collectionInstance, { idField: 'id' })
+  }
+
+  updateData(){
     
   }
 }
