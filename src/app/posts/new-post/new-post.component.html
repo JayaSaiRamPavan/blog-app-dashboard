@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3 class="text-theme-primary">Add New Post</h3>
+            <p class="mb-5">You can add new post here</p>
+        </div>
+    </div>
+    <form action="">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card shadow-effect">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label >Title</label>
+                            <input (keyup)="onTitleChange($event)" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label >Permalink</label>
+                            <input disabled [(ngModel)] = "permalink" type="text" name ="permalink" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label >Excerpt</label>
+                            <textarea cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="">Please select a post category</label>
+                    <select class="form-control">
+                        <option value="" disabled>Please select a category</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Post Image</label>
+                    <img [src]="imgSrc" alt="post image" class="form-control img-fluid img-preview">
+                    <input (change)="showPreview($event)" accept="image/*" type="file" class="form-control">
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-3 mb-5">
+            <div class="col-md-12">
+                <div class="card shadow-effect">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for=""> Content</label>
+                            <textarea class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-center mb-5">
+               <button class="btn btn-info bg-theme">Save Post</button> 
+               <button routerLink="/posts" class="btn btn-danger ml-3">Back to Post</button>
+            </div>
+        </div>
+    </form>
+</div>
