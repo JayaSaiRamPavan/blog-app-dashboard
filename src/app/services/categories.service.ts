@@ -1,4 +1,3 @@
-import { Category } from './../models/category';
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, collectionData, updateDoc} from '@angular/fire/firestore';
 import { deleteDoc, doc } from '@firebase/firestore';

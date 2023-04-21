@@ -1,3 +1,5 @@
+import { Post } from './../../models/post';
+import { PostsService } from './../../services/posts.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllPostComponent implements OnInit {
 
-  constructor() { }
+  constructor( private postsService : PostsService) { }
 
+  postArray !: Array<any>;
   ngOnInit(): void {
+    this.postsService.loadData()
+    .subscribe(val =>{
+      this.postArray = val;
+      console.log(this.postArray);
+      
+    })
+  }
+  onDelete(postImgPath : any, id : string){
+    this.postsService.deleteImage(postImgPath,id)
+  }
+  
+  onFeatured(id : string, value: boolean){
+    const featuredData = {
+      isFeatured : value
+    }
+    this.postsService.markFeatured(id, featuredData)
+
   }
 
 }
